@@ -38,7 +38,7 @@ start_link(AMQPParams) ->
     {ok, Connection} = supervisor2:start_child(
                          Sup, {connection, {amqp_gen_connection, start_link,
                                             [TypeSup, AMQPParams]},
-                               temporary, brutal_kill, worker,
+                               intrinsic, brutal_kill, worker,
                                [amqp_gen_connection]}),
     {ok, Sup, Connection}.
 
@@ -47,4 +47,4 @@ start_link(AMQPParams) ->
 %%---------------------------------------------------------------------------
 
 init([]) ->
-    {ok, {{one_for_all, 0, 1}, []}}.
+    {ok, {{one_for_all, 1, 1}, []}}.
